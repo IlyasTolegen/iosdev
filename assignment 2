@@ -1,0 +1,162 @@
+import Foundation
+
+// Problem 1
+
+for i in 1...100 {
+    if i % 3 == 0 && i % 5 == 0 {
+        print("FizzBuzz")
+    } else if i % 3 == 0 {
+        print("Fizz")
+    } else if i % 5 == 0 {
+        print("Buzz")
+    } else {
+        print(i)
+    }
+}
+
+
+// Problem 2
+
+func isPrime(_ number: Int) -> Bool {
+    if number < 2 { return false }
+    for i in 2..<number {
+        if number % i == 0 { return false }
+    }
+    return true
+}
+
+print("Prime numbers from 1 to 100:")
+for i in 1...100 {
+    if isPrime(i) {
+        print(i, terminator: " ")
+    }
+}
+print("\n")
+
+// Problem 3
+
+func celsiusToFahrenheit(_ c: Double) -> Double { return (c * 9/5) + 32 }
+func celsiusToKelvin(_ c: Double) -> Double { return c + 273.15 }
+func fahrenheitToCelsius(_ f: Double) -> Double { return (f - 32) * 5/9 }
+func kelvinToCelsius(_ k: Double) -> Double { return k - 273.15 }
+
+
+let tempValue = 100.0
+let unit = "C"
+
+if unit == "C" {
+    print("\(tempValue)°C = \(celsiusToFahrenheit(tempValue))°F, \(celsiusToKelvin(tempValue))K")
+} else if unit == "F" {
+    let c = fahrenheitToCelsius(tempValue)
+    print("\(tempValue)°F = \(c)°C, \(celsiusToKelvin(c))K")
+} else if unit == "K" {
+    let c = kelvinToCelsius(tempValue)
+    print("\(tempValue)K = \(c)°C, \(celsiusToFahrenheit(c))°F")
+}
+
+
+// Problem 4:
+
+var shoppingList: [String] = []
+
+func addItem(_ item: String) {
+    shoppingList.append(item)
+}
+func removeItem(_ item: String) {
+    shoppingList.removeAll { $0 == item }
+}
+func showList() {
+    print("Shopping List:", shoppingList)
+}
+
+// Example usage
+addItem("Milk")
+addItem("Bread")
+removeItem("Milk")
+showList()
+
+
+// Problem 5
+
+func wordFrequency(sentence: String) {
+    let cleaned = sentence.lowercased().components(separatedBy: CharacterSet.alphanumerics.inverted).filter { !$0.isEmpty }
+    var freq: [String: Int] = [:]
+    for word in cleaned {
+        freq[word, default: 0] += 1
+    }
+    for (word, count) in freq {
+        print("\(word): \(count)")
+    }
+}
+
+wordFrequency(sentence: "Hello world, hello Swift world!")
+
+
+// Problem 6
+
+func fibonacci(_ n: Int) -> [Int] {
+    if n <= 0 { return [] }
+    if n == 1 { return [0] }
+    var sequence = [0, 1]
+    while sequence.count < n {
+        sequence.append(sequence[sequence.count-1] + sequence[sequence.count-2])
+    }
+    return sequence
+}
+
+print("Fibonacci 10:", fibonacci(10))
+
+
+// Problem 7
+
+let students = ["Alice": 85, "Bob": 70, "Charlie": 95, "Diana": 60]
+
+let scores = Array(students.values)
+let average = Double(scores.reduce(0, +)) / Double(scores.count)
+let highest = scores.max() ?? 0
+let lowest = scores.min() ?? 0
+
+print("Average:", average, "Highest:", highest, "Lowest:", lowest)
+
+for (name, score) in students {
+    let status = score >= Int(average) ? "above" : "below"
+    print("\(name): \(score) (\(status) average)")
+}
+
+
+// Problem 8
+
+func isPalindrome(_ text: String) -> Bool {
+    let cleaned = text.lowercased().components(separatedBy: CharacterSet.alphanumerics.inverted).joined()
+    return cleaned == String(cleaned.reversed())
+}
+
+print("Is 'A man a plan a canal Panama' palindrome?", isPalindrome("A man a plan a canal Panama"))
+
+
+// Problem 9: Simple Calculator
+
+func add(_ a: Double, _ b: Double) -> Double { return a + b }
+func subtract(_ a: Double, _ b: Double) -> Double { return a - b }
+func multiply(_ a: Double, _ b: Double) -> Double { return a * b }
+func divide(_ a: Double, _ b: Double) -> Double? { return b == 0 ? nil : a / b }
+
+let x = 10.0, y = 5.0
+print("Add:", add(x, y))
+print("Subtract:", subtract(x, y))
+print("Multiply:", multiply(x, y))
+print("Divide:", divide(x, y) ?? "Error: Division by zero")
+
+// Problem 10: Unique Characters
+
+func hasUniqueCharacters(_ text: String) -> Bool {
+    var seen: Set<Character> = []
+    for char in text {
+        if seen.contains(char) { return false }
+        seen.insert(char)
+    }
+    return true
+}
+
+print("Unique chars in 'Swift':", hasUniqueCharacters("Swift"))
+print("Unique chars in 'Hello':", hasUniqueCharacters("Hello"))
